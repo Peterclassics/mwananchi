@@ -1,0 +1,130 @@
+:root {
+  --navy: #102e3c;
+  --teal: #127967;
+  --muted: #586d77;
+  --border: #e5ebec;
+  --bs-primary: #127967;
+  --bs-body-font-family: 'DM Sans', sans-serif;
+  --bs-body-color: #233c48;
+  --bs-body-bg: #f5f7f8;
+}
+body {
+  margin: 0;
+  font-size: 14px;
+}
+h1,
+h2,
+h3,
+.brand {
+  font-family: 'Manrope', sans-serif;
+}
+h1 {
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+h2 {
+  font-size: 17px;
+  font-weight: 800;
+}
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+}
+p {
+  line-height: 1.7;
+}
+a {
+  color: var(--teal);
+  text-decoration: none;
+}
+a:hover {
+  color: #075446;
+}
+button,
+a,
+input,
+select,
+textarea {
+  touch-action: manipulation;
+}
+:focus-visible {
+  outline: 3px solid #37a795 !important;
+  outline-offset: 3px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 11px 18px;
+}
+.btn-primary {
+  --bs-btn-bg: var(--teal);
+  --bs-btn-border-color: var(--teal);
+  --bs-btn-hover-bg: #096152;
+  --bs-btn-hover-border-color: #096152;
+  --bs-btn-disabled-bg: #559b8f;
+  --bs-btn-disabled-border-color: #559b8f;
+}
+.btn-outline-secondary {
+  --bs-btn-color: #425b66;
+  --bs-btn-border-color: #d6dfe2;
+  --bs-btn-hover-bg: #e6edee;
+  --bs-btn-hover-color: #233c48;
+  --bs-btn-hover-border-color: #b3c5ca;
+  background: white;
+}
+.form-control,
+.form-select {
+  background-color: #fff;
+  border-color: #dce3e6;
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 6px;
+}
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 0 3px #12796718;
+}
+.form-label {
+  font-size: 13px;
+  font-weight: 600;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+.brand:hover {
+  color: inherit;
+}
+.brand-mark {
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: #1c8573;
+  color: #fff;
+  width: 40px;
+  height: 42px;
+}
+.brand-light {
+  font-weight: 400;
+}
+.brand small {
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 7px;
+  letter-spacing: 1.65px;
+  margin-top: 4px;
+  font-weight: 500;
+  white-space: nowrap;
+}
