@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import {
   ArrowRight,
-  MapPin,
   ClipboardList,
   CheckCircle2,
   Lightbulb,
@@ -11,6 +10,7 @@ import {
   Activity,
   ArrowUpRight,
 } from 'lucide-react';
+import heroImage from '../../../3cee8613f0c35148a61b3451b771fa42.jpg';
 import Brand from '../../components/branding/Brand';
 import { useAuth } from '../../context/AuthContext';
 export default function LandingPage() {
@@ -72,39 +72,14 @@ export default function LandingPage() {
               Simple to report. Easy to track. Built for everyone.
             </div>
           </div>
-          <div
-            className="community-visual"
-            aria-label="Illustration of a connected community"
-          >
-            <div className="visual-grid" />
-            <div className="visual-title">
-              <span className="visual-live" />
-              CONNECTED COMMUNITIES
-            </div>
-            <div className="city">
-              <div className="building b1" />
-              <div className="building b2" />
-              <div className="building b3" />
-              <div className="building b4" />
-              <div className="tree t1" />
-              <div className="tree t2" />
-              <div className="city-road" />
-            </div>
-            <div className="floating-report">
-              <span>
-                <Lightbulb size={20} />
-              </span>
-              <div>
-                <strong>A brighter way home</strong>
-                <small>Streetlight repair · Resolved</small>
-              </div>
-              <CheckCircle2 size={19} />
-            </div>
-            <div className="visual-bottom">
-              <MapPin size={16} />
-              Local issues. Shared progress.
-            </div>
-          </div>
+          <img
+            className="hero-image"
+            src={heroImage}
+            alt="A busy community street with motorcycles, pedestrians and local businesses"
+            width={1080}
+            height={1202}
+            fetchPriority="high"
+          />
         </section>
         <section className="services-strip">
           <span>HERE FOR THE EVERYDAY ESSENTIALS</span>
