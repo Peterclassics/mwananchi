@@ -71,9 +71,6 @@ export default function AuthPage({ register = false }) {
             One account. A clear path from report to resolution.
           </div>
         </div>
-        <small>
-          Assessment demonstration · Not an official government platform
-        </small>
       </section>
       <main id="main-content" className="auth-form">
         <Link to="/" className="back-link">
