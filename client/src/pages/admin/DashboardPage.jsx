@@ -10,7 +10,6 @@ export default function AdminDashboardPage() {
   return (
     <>
       <PageHeading
-        breadcrumb="OVERVIEW"
         title="Service delivery overview"
         description="A clear view of community needs and the progress you’re making."
       />

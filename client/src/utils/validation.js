@@ -1,3 +1,5 @@
+import locations from '../data/kenya-locations.json';
+
 export function validatePersonalDetails(values) {
   const errors = {};
   const name = String(values.full_name || '').trim();
@@ -38,8 +40,6 @@ export function validateRequest(values, categories) {
   )
     errors.category_id = 'Choose an available service category.';
   for (const [key, label, max] of [
-    ['county', 'county', 100],
-    ['town_or_area', 'town or area', 100],
     ['location_details', 'street or nearby landmark', 255],
   ]) {
     const value = String(values[key] || '').trim();
@@ -48,6 +48,10 @@ export function validateRequest(values, categories) {
     else if (value.length > max)
       errors[key] = `Use ${max} characters or fewer.`;
   }
+  const location = locations.find((entry) => entry.county === values.county);
+  if (!location) errors.county = 'Choose a county from the list.';
+  if (!location?.towns.includes(values.town_or_area))
+    errors.town_or_area = 'Choose a town or area in the selected county.';
   const description = String(values.description || '').trim();
   if (description.length < 20)
     errors.description = 'Describe the issue in at least 20 characters.';

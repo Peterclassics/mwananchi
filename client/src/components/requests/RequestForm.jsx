@@ -6,6 +6,7 @@ import { api, message } from '../../services/api';
 import DataState from '../ui/DataState';
 import ErrorAlert from '../ui/ErrorAlert';
 import { validateRequest } from '../../utils/validation';
+import LocationFields from './LocationFields';
 export default function RequestForm() {
   const categories = useApi('/categories'),
     navigate = useNavigate();
@@ -15,6 +16,8 @@ export default function RequestForm() {
     [fields, setFields] = useState({}),
     [busy, setBusy] = useState(false);
   const [descriptionLength, setDescriptionLength] = useState(0);
+  const [county, setCounty] = useState('');
+  const [town, setTown] = useState('');
   function validateField(event) {
     const input = event.target;
     if (!input.name || input.name === 'image') return;
@@ -175,12 +178,27 @@ export default function RequestForm() {
             </div>
           </div>
           <div className="row g-3">
-            <div className="col-md-6">
-              {field('county', 'County', 'e.g. Nairobi')}
-            </div>
-            <div className="col-md-6">
-              {field('town_or_area', 'Town or area', 'e.g. Kilimani')}
-            </div>
+            <LocationFields
+              county={county}
+              town={town}
+              errors={fields}
+              onCountyChange={(value) => {
+                setCounty(value);
+                setTown('');
+                setFields((previous) => ({
+                  ...previous,
+                  county: undefined,
+                  town_or_area: undefined,
+                }));
+              }}
+              onTownChange={(value) => {
+                setTown(value);
+                setFields((previous) => ({
+                  ...previous,
+                  town_or_area: undefined,
+                }));
+              }}
+            />
             <div className="col-12">
               {field(
                 'location_details',

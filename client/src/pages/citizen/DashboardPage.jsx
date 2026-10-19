@@ -14,7 +14,6 @@ export default function CitizenDashboardPage() {
   return (
     <>
       <PageHeading
-        breadcrumb="OVERVIEW"
         title={`Hello, ${user.full_name.split(' ')[0]}. 👋`}
         description="Here’s what’s happening with your service requests."
       >
