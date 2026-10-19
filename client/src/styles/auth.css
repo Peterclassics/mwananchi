@@ -10,22 +10,29 @@
   padding: 45px 65px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 100vh;
-  gap: 50px;
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100svh;
+  min-height: 620px;
+  gap: 32px;
+}
+.auth-story > div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px 0;
 }
 .auth-story h1 {
   font-size: 43px;
-  line-height: 1.4;
+  line-height: 1.2;
   margin: 20px 0;
 }
 .auth-story p {
   color: #a6c1c8;
   max-width: 370px;
-}
-.auth-story > small {
-  font-size: 10px;
-  color: #86a2ab;
+  margin-bottom: 0;
 }
 .eyebrow {
   font-size: 9px;
@@ -41,7 +48,7 @@
   gap: 10px;
   font-size: 11px;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 32px;
   color: #8eb9ac;
 }
 .auth-form {

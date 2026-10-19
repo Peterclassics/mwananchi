@@ -104,6 +104,9 @@
   }
   .auth-story {
     min-height: auto;
+    height: auto;
+    position: static;
+    gap: 0;
     padding: 25px;
   }
   .auth-story > div,
