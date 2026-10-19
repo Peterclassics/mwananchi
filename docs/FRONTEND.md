@@ -58,6 +58,8 @@ The request list and details share most of their layout between roles. Small nam
 
 ### Backend domain by environment
 
+Vercel routing configuration is included for both supported project roots: repository root (`vercel.json`, output `client/dist`) and `client` (`client/vercel.json`, output `dist`). Keep the Vercel Root Directory set to one of those, not the unused `mwananchi` starter folder. Both configurations serve `index.html` for React Router paths such as `/login` or `/requests/1`, including direct visits and refreshes. API calls use the external backend URL configured below; these configurations do not provide an API proxy. Push the files and redeploy to apply the routing fix.
+
 All Axios calls and protected request images use the API URL selected in `services/apiConfig.js`.
 
 - Development (`npm run dev`): always uses `/api`, forwarded by Vite to `http://127.0.0.1:4000`.
