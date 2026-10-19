@@ -56,6 +56,18 @@ The request list and details share most of their layout between roles. Small nam
 
 ## Working on a screen
 
+### Backend domain by environment
+
+All Axios calls and protected request images use the API URL selected in `services/apiConfig.js`.
+
+- Development (`npm run dev`): always uses `/api`, forwarded by Vite to `http://127.0.0.1:4000`.
+- Production (`npm run build`): uses `VITE_API_BASE_URL`. In Vercel's project environment variables, set `VITE_API_BASE_URL=https://YOUR-BACKEND.up.railway.app/api` for Production. Replace the placeholder with the real Railway domain, retaining HTTPS and `/api`. Configure Preview separately if needed.
+- Without a configured production URL, the default is `/api` on the frontend domain. This requires a production reverse proxy; Vite's development proxy does not run on Vercel.
+
+Vite embeds public variables at build time. Redeploy after changing them. Never put database credentials or JWT secrets in a `VITE_` variable.
+
+Set the Railway backend's `FRONTEND_ORIGIN` to the exact Vercel frontend origin and `NODE_ENV=production`. URL selection alone does not complete cross-site authentication: the current backend cookies use `SameSite=Lax`. Separate Vercel and Railway domains need a same-origin API proxy or suitable cross-site cookie configuration, accounting for browser third-party cookie restrictions. Keep CSRF protection enabled. A same-origin proxy avoids relying on third-party cookies.
+
 Mobile navigation is composed in AppLayout using `useMediaQuery`. `MobileSidebar` uses a native modal dialog for background isolation and focus return, plus keyboard focus wrapping, Escape/backdrop dismissal and body scroll locking. Sidebar contains the same role-aware navigation links on desktop and mobile. Route changes and link selection close the drawer automatically. Styling lives in `styles/navigation.css`.
 
 1. Find its page in `routes/AppRoutes.jsx`.
