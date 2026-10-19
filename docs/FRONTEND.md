@@ -58,17 +58,19 @@ The request list and details share most of their layout between roles. Small nam
 
 ### Backend domain by environment
 
-Vercel routing configuration is included for both supported project roots: repository root (`vercel.json`, output `client/dist`) and `client` (`client/vercel.json`, output `dist`). Keep the Vercel Root Directory set to one of those, not the unused `mwananchi` starter folder. Both configurations serve `index.html` for React Router paths such as `/login` or `/requests/1`, including direct visits and refreshes. API calls use the external backend URL configured below; these configurations do not provide an API proxy. Push the files and redeploy to apply the routing fix.
+Vercel routing configuration is included for both supported project roots: repository root (`vercel.json`, output `client/dist`) and `client` (`client/vercel.json`, output `dist`). Keep the Vercel Root Directory set to one of those, not the unused `mwananchi` starter folder. Both configurations proxy `/api/:path*` to `https://hudumaserver-production.up.railway.app/api/:path*` before serving `index.html` for React Router paths. Push the files and redeploy to apply these rules. If the backend domain changes, update both proxy destinations.
 
 All Axios calls and protected request images use the API URL selected in `services/apiConfig.js`.
 
 - Development (`npm run dev`): always uses `/api`, forwarded by Vite to `http://127.0.0.1:4000`.
-- Production (`npm run build`): uses `VITE_API_BASE_URL`. In Vercel's project environment variables, set `VITE_API_BASE_URL=https://YOUR-BACKEND.up.railway.app/api` for Production. Replace the placeholder with the real Railway domain, retaining HTTPS and `/api`. Configure Preview separately if needed.
-- Without a configured production URL, the default is `/api` on the frontend domain. This requires a production reverse proxy; Vite's development proxy does not run on Vercel.
+- Production (`npm run build`): set `VITE_API_BASE_URL=/api` in Vercel for Production. Requests go to the frontend origin, and Vercel forwards them to Railway. This keeps authentication and CSRF cookies on the same origin as the page. Remove any previous direct Railway URL from this variable. Preview origins also need explicit backend authorisation before login can work.
+- Without a configured production URL, the default is `/api`, which uses the included Vercel proxy. Other hosting platforms need an equivalent proxy.
 
 Vite embeds public variables at build time. Redeploy after changing them. Never put database credentials or JWT secrets in a `VITE_` variable.
 
-Set the Railway backend's `FRONTEND_ORIGIN` to the exact Vercel frontend origin and `NODE_ENV=production`. URL selection alone does not complete cross-site authentication: the current backend cookies use `SameSite=Lax`. Separate Vercel and Railway domains need a same-origin API proxy or suitable cross-site cookie configuration, accounting for browser third-party cookie restrictions. Keep CSRF protection enabled. A same-origin proxy avoids relying on third-party cookies.
+Set Railway's `FRONTEND_ORIGIN=https://mwananchi-kappa.vercel.app` (no trailing slash) and `NODE_ENV=production`. The backend retains HTTP-only, Secure, SameSite=Lax cookies and its CSRF token and Origin checks. The proxy forwards browser requests to Railway without making the browser contact another site. Do not disable CSRF validation to fix a missing-cookie error.
+
+After deployment, open `https://mwananchi-kappa.vercel.app/api/health`; it must return JSON showing API and database readiness. Reload the login page to acquire a fresh CSRF token. In browser Network tools, authentication requests should target the Vercel domain under `/api`, and protected requests after login should include the session cookie. Local checks do not verify Vercel's live proxy; verify this after redeployment.
 
 Mobile navigation is composed in AppLayout using `useMediaQuery`. `MobileSidebar` uses a native modal dialog for background isolation and focus return, plus keyboard focus wrapping, Escape/backdrop dismissal and body scroll locking. Sidebar contains the same role-aware navigation links on desktop and mobile. Route changes and link selection close the drawer automatically. Styling lives in `styles/navigation.css`.
 
